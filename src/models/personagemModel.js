@@ -9,8 +9,6 @@ class PersonagemModel {
       },
     });
 
-    console.log(personagens);
-
     return personagens;
   }
 
@@ -26,26 +24,12 @@ class PersonagemModel {
   }
 
   // Criar um novo personagem
-  async create(
-    title,
-    description,
-    episodes,
-    releaseYear,
-    studio,
-    genres,
-    rating,
-    imageUrl
-  ) {
+  async create(nome, idade, caracteristicas) {
     const newPersonagem = await prisma.personagem.create({
       data: {
-        title,
-        description,
-        episodes,
-        releaseYear,
-        studio,
-        genres,
-        rating,
-        imageUrl,
+        nome,
+        idade,
+        características: caracteristicas,
       },
     });
 
@@ -53,17 +37,7 @@ class PersonagemModel {
   }
 
   // Atualizar um personagem
-  async update(
-    id,
-    title,
-    description,
-    episodes,
-    releaseYear,
-    studio,
-    genres,
-    rating,
-    imageUrl
-  ) {
+  async update(id, nome, idade, caracteristicas) {
     const personagem = await this.findById(id);
 
     if (!personagem) {
@@ -72,29 +46,14 @@ class PersonagemModel {
 
     // Atualize o personagem existente com os novos dados
     const data = {};
-    if (title !== undefined) {
-      data.title = title;
+    if (nome !== undefined) {
+      data.nome = nome;
     }
-    if (description !== undefined) {
-      data.description = description;
+    if (idade !== undefined) {
+      data.idade = idade;
     }
-    if (episodes !== undefined) {
-      data.episodes = episodes;
-    }
-    if (releaseYear !== undefined) {
-      data.releaseYear = releaseYear;
-    }
-    if (studio !== undefined) {
-      data.studio = studio;
-    }
-    if (genres !== undefined) {
-      data.genres = genres;
-    }
-    if (rating !== undefined) {
-      data.rating = rating;
-    }
-    if (imageUrl !== undefined) {
-      data.imageUrl = imageUrl;
+    if (caracteristicas !== undefined) {
+      data.características = caracteristicas;
     }
 
     const personagemUpdated = await prisma.personagem.update({
